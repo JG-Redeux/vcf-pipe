@@ -1,3 +1,13 @@
+rule all:
+    input:
+        "input/NIST.vcf",
+        "output/NIST-ANNOT.vcf",
+        "output/NIST-ANNOT.vcf.gz.tbi"
+    shell:
+        """
+        echo "All rules executed successfully!"
+        """
+
 rule prepare_conda:
     shell:
         """
@@ -34,22 +44,27 @@ rule prepare_vcf:
         '''
 
 rule docker_vep:
+    input:
+        vcf_file = "input/{vcf}.vcf"
+    output:
+        "output/{vcf}-ANNOT.vcf"
     shell:
         '''
         sudo docker run -t -i -v $HOME/vep_data:/data ensemblorg/ensembl-vep
         cd vcf-pipe/
-        vep -i {vcf}.vcf --cache --force_overwrite --hgvs --symbol --af --max_af --af_1kg -o output/{vcf}-ANNOT.vcf --vcf --stats_html --stats_text --fields "Allele,Consequence,IMPACT,SYMBOL,Gene,Feature_type,Feature,BIOTYPE,EXON,INTRON,HGVSc,HGVSp,cDNA_position,CDS_position,Protein_position,Amino_acids,Codons,Existing_variation,DISTANCE,STRAND,FLAGS,SYMBOL_SOURCE,HGNC_ID,HGVS_OFFSET,AF,AFR_AF,AMR_AF,EAS_AF,EUR_AF,SAS_AF,MAX_AF,MAX_AF_POPS,CLIN_SIG,SOMATIC,PHENO" --verbose
+        vep -i {input.vcf_file} --cache --force_overwrite --hgvs --symbol --af --max_af --af_1kg -o {output} --vcf --stats_html --stats_text --fields "Allele,Consequence,IMPACT,SYMBOL,Gene,Feature_type,Feature,BIOTYPE,EXON,INTRON,HGVSc,HGVSp,cDNA_position,CDS_position,Protein_position,Amino_acids,Codons,Existing_variation,DISTANCE,STRAND,FLAGS,SYMBOL_SOURCE,HGNC_ID,HGVS_OFFSET,AF,AFR_AF,AMR_AF,EAS_AF,EUR_AF,SAS_AF,MAX_AF,MAX_AF_POPS,CLIN_SIG,SOMATIC,PHENO" --verbose
         '''
 
 rule bgzipfy:
     input:
-        anot_vcf = "output/{vcf}-ANNOT.vcf"
+       "output/{vcf}-ANNOT.vcf"
     output:
-        "output/{vcf}-ANNOT.vcf.gz"
+        o1 = "output/{vcf}-ANNOT.vcf.gz",
+        o2 = "output/{vcf}-ANNOT.vcf.gz.tbi"
     shell:
         '''
-        bgzip -c output/{vcf}-ANNOT.vcf > output/{vcf}-ANNOT.vcf.gz 
-        bcftools index -t output/{vcf}-ANNOT.vcf.gz
+        bgzip -c {input} > {output}
+        bcftools index -t {output}
         '''
 
 rule execute_main:
