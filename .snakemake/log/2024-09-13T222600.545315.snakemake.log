@@ -1,0 +1,33 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 8
+Rules claiming more threads will be scaled down.
+Job stats:
+job            count    min threads    max threads
+-----------  -------  -------------  -------------
+prepare_vcf        1              1              1
+total              1              1              1
+
+Select jobs to execute...
+
+[Fri Sep 13 22:26:00 2024]
+rule prepare_vcf:
+    input: input/NIST2.vcf.gz
+    output: output/NIST2_proc.vcf
+    jobid: 0
+    wildcards: vcf=NIST2
+    resources: tmpdir=/tmp
+
+[Fri Sep 13 22:26:00 2024]
+Error in rule prepare_vcf:
+    jobid: 0
+    output: output/NIST2_proc.vcf
+    shell:
+        
+        gzip -d $HOME/vcf-pipe-test/input/input/NIST2.vcf.gz.vcf.gz
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/jgd/vcf-pipe/.snakemake/log/2024-09-13T222600.545315.snakemake.log

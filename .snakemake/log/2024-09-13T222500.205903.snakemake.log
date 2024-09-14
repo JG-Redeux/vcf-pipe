@@ -1,0 +1,4 @@
+Building DAG of jobs...
+MissingInputException in line 26 of /home/jgd/vcf-pipe/snakemake/Snakefile:
+Missing input files for rule prepare_vcf:
+input/NIST2.vcf.gz

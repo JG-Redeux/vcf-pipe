@@ -1,0 +1,29 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job              count    min threads    max threads
+-------------  -------  -------------  -------------
+prepare_conda        1              1              1
+total                1              1              1
+
+Select jobs to execute...
+
+[Fri Sep 13 19:57:11 2024]
+rule prepare_conda:
+    jobid: 0
+    resources: tmpdir=/tmp
+
+[Fri Sep 13 19:57:11 2024]
+Error in rule prepare_conda:
+    jobid: 0
+    shell:
+        
+        conda create -n envvcf -c bioconda --file requirements.txt
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/jgd/vcf-pipe/snakemake/.snakemake/log/2024-09-13T195710.957678.snakemake.log

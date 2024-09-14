@@ -1,0 +1,21 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 8
+Rules claiming more threads will be scaled down.
+Job stats:
+job              count    min threads    max threads
+-------------  -------  -------------  -------------
+prepare_conda        1              1              1
+total                1              1              1
+
+Select jobs to execute...
+
+[Fri Sep 13 22:13:36 2024]
+rule prepare_conda:
+    jobid: 0
+    resources: tmpdir=/tmp
+
+[Fri Sep 13 22:16:59 2024]
+Finished job 0.
+1 of 1 steps (100%) done
+Complete log: /home/jgd/vcf-pipe/snakemake/.snakemake/log/2024-09-13T221336.036856.snakemake.log

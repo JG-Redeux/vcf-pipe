@@ -1,0 +1,29 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 8
+Rules claiming more threads will be scaled down.
+Job stats:
+job            count    min threads    max threads
+-----------  -------  -------------  -------------
+prepare_vcf        1              1              1
+total              1              1              1
+
+Select jobs to execute...
+
+[Fri Sep 13 22:27:49 2024]
+rule prepare_vcf:
+    input: input/NIST2.vcf.gz
+    output: output/NIST2_proc.vcf
+    jobid: 0
+    wildcards: vcf=NIST2
+    resources: tmpdir=/tmp
+
+Waiting at most 5 seconds for missing files.
+MissingOutputException in line 26 of /home/jgd/vcf-pipe/Snakefile:
+Job Missing files after 5 seconds:
+output/NIST2_proc.vcf
+This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait.
+Job id: 0 completed successfully, but some output files are missing. 0
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/jgd/vcf-pipe/.snakemake/log/2024-09-13T222749.251410.snakemake.log

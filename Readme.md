@@ -27,6 +27,6 @@ O Variant Effect Predictor utilizado foi o disponibilizado pelo Ensembl via Dock
 
 ---
 
-Sem mais, espero que gostem, independente de qualquer coisa, foi divertido fazer e reaprender tanta coisa!
+Sem mais, espero que gostem, independente de qualquer coisa, foi divertido fazer!
 
 Jullian G. Damasceno.

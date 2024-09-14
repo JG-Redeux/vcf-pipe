@@ -1,0 +1,4 @@
+Building DAG of jobs...
+WildcardError in line 26 of /home/jgd/vcf-pipe/snakemake/Snakefile:
+Wildcards in input files cannot be determined from output files:
+'vcf'

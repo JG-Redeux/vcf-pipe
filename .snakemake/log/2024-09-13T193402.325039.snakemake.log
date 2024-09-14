@@ -1,0 +1,7 @@
+localrules directive specifies rules that are not present in the Snakefile:
+	HOME
+
+Building DAG of jobs...
+MissingInputException in line 4 of /home/jgd/vcf-pipe/snakemake/Snakefile:
+Missing input files for rule prepare_conda:
+$HOME

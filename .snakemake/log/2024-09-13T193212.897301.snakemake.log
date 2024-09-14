@@ -1,0 +1,3 @@
+CreateRuleException in line 21 of /home/jgd/vcf-pipe/snakemake/Snakefile:
+The name install_reqs is already used by another rule
+  File "/home/jgd/vcf-pipe/snakemake/Snakefile", line 21, in <module>
