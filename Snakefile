@@ -12,26 +12,16 @@ rule prepare_conda:
     shell:
         """
         conda create -n envvcf -c bioconda --file $HOME/vcf-pipe/requirements.txt
-        """
-
-rule install_reqs:
-    shell:
-        """
         apt-get install bcftools
         apt-get install samtools
         apt-get install tabix
-        """
-
-rule prepare_folders:
-    shell:
-        '''
         mkdir $HOME/vcf-pipe
         mkdir $HOME/vcf-pipe/input
         mkdir $HOME/vcf-pipe/output
 
         sudo chmod -R a+rwx $HOME/vcf-pipe
         cd $HOME/vcf-pipe
-        '''
+        """
 
 rule prepare_vcf:
     input:
@@ -50,9 +40,11 @@ rule docker_vep:
         "output/{vcf}-ANNOT.vcf"
     shell:
         '''
-        sudo docker run -t -i -v $HOME/vep_data:/data ensemblorg/ensembl-vep
-        cd vcf-pipe/
-        vep -i {input.vcf_file} --cache --force_overwrite --hgvs --symbol --af --max_af --af_1kg -o {output} --vcf --stats_html --stats_text --fields "Allele,Consequence,IMPACT,SYMBOL,Gene,Feature_type,Feature,BIOTYPE,EXON,INTRON,HGVSc,HGVSp,cDNA_position,CDS_position,Protein_position,Amino_acids,Codons,Existing_variation,DISTANCE,STRAND,FLAGS,SYMBOL_SOURCE,HGNC_ID,HGVS_OFFSET,AF,AFR_AF,AMR_AF,EAS_AF,EUR_AF,SAS_AF,MAX_AF,MAX_AF_POPS,CLIN_SIG,SOMATIC,PHENO" --verbose
+        docker run -t -i -v $HOME/vcf-pipe:/data ensemblorg/ensembl-vep INSTALL.pl -a cf -s homo_sapiens -y GRCh38
+        docker run -v $HOME/vcf-pipe/input:/data ensemblorg/ensembl-vep \
+        vep -i {input.vcf_file} --cache --force_overwrite --hgvs --cache \
+        --symbol --af --max_af --af_1kg -o {output} --vcf --stats_html --stats_text \
+        --fields "Allele,Consequence,IMPACT,SYMBOL,Gene,Feature_type,Feature,BIOTYPE,EXON,INTRON,HGVSc,HGVSp,cDNA_position,CDS_position,Protein_position,Amino_acids,Codons,Existing_variation,DISTANCE,STRAND,FLAGS,SYMBOL_SOURCE,HGNC_ID,HGVS_OFFSET,AF,AFR_AF,AMR_AF,EAS_AF,EUR_AF,SAS_AF,MAX_AF,MAX_AF_POPS,CLIN_SIG,SOMATIC,PHENO"
         '''
 
 rule bgzipfy:
